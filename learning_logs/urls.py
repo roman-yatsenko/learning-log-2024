@@ -10,4 +10,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     # Сторінка з переліком всіх тем
     path('topics/', views.topics, name='topics'),
+    # Сторінка з докладною інформацією за окремою темою
+    path('topics/<int:topic_id>/', views.topic, name='topic'),
 ]
