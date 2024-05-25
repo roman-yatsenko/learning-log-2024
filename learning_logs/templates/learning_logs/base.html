@@ -2,7 +2,8 @@
     <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
     <a href="{% url 'learning_logs:topics' %}">Теми</a> - 
     {% if user.is_authenticated %}
-        Привіт, {{ user.username }}
+        Привіт, {{ user.username }} -  
+        <a href="{% url 'users:logout' %}">Вихід</a>
     {% else %}
         <a href="{% url 'users:login' %}">Вхід на сайт</a>
     {% endif %}
