@@ -1,0 +1,14 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+    {% if form.errors %}
+        <p>Помилка під час введення логіну/паролю. Спробуйте ще раз.</p>
+    {% endif %}
+
+    <form action="{% url 'users:login' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Вхід</button>
+        <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
+    </form>
+{% endblock content %}
