@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 
-from .forms import TopicForm
+from .forms import EntryForm, TopicForm
 from .models import Topic
 
 # Create your views here.
@@ -36,3 +36,19 @@ def new_topic(request):
     # Вивести пусту чи недійсну форму
     context = {'form': form}
     return render(request, 'learning_logs/new_topic.html', context)
+
+def new_entry(request, topic_id):
+    """Додає нову нотатку до нової теми"""
+    topic = Topic.objects.get(id=topic_id)
+    if request.method != 'POST':
+        form = EntryForm()
+    else:
+        form = EntryForm(data=request.POST)
+        if form.is_valid():
+            new_entry = form.save(commit=False)
+            new_entry.topic = topic
+            new_entry.save()
+            return redirect('learning_logs:topic', topic_id=topic_id)
+        
+    context = {'form': form, 'topic': topic}
+    return render(request, 'learning_logs/new_entry.html', context)
