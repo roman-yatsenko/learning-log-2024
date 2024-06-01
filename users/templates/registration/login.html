@@ -1,14 +1,13 @@
 {% extends "learning_logs/base.html" %}
+{% load django_bootstrap5 %}
 
 {% block content %}
-    {% if form.errors %}
-        <p>Помилка під час введення логіну/паролю. Спробуйте ще раз.</p>
-    {% endif %}
-
-    <form action="{% url 'users:login' %}" method="post">
+    <h2>Вхід на сайт</h2>
+    
+    <form action="{% url 'users:login' %}" method="post" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Вхід</button>
+        {% bootstrap_form form %}
+        {% bootstrap_button "Вхід" button_type="submit" button_class="btn btn-primary" %}
         <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
     </form>
 {% endblock content %}
