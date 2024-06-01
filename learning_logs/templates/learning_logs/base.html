@@ -41,14 +41,13 @@
                 </ul>
               </div>
             </div>
-          </nav>
+        </nav>
 
-        <p>
-            <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
-            <a href="{% url 'learning_logs:topics' %}">Теми</a> - 
+        <main class="container">
+            {% block content %}
             
-        </p>
-        
-        {% block content %}{% endblock content %}
+            {% endblock content %}
+        </main>
+
     </body>
 </html>
