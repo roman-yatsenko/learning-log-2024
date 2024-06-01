@@ -1,7 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from .forms import EntryForm, TopicForm
-from .models import Topic, Entry
+from .models import Entry, Topic
 
 # Create your views here.
 
@@ -9,6 +10,7 @@ def index(request):
     """Домашня сторінка застосунку Learning Log"""
     return render(request, 'learning_logs/index.html')
 
+@login_required
 def topics(request):
     """Виводить список всіх тем"""
     topics = Topic.objects.order_by('date_added')
