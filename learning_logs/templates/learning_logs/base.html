@@ -1,13 +1,54 @@
-<p>
-    <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
-    <a href="{% url 'learning_logs:topics' %}">Теми</a> - 
-    {% if user.is_authenticated %}
-        Привіт, {{ user.username }} -  
-        <a href="{% url 'users:logout' %}">Вихід</a>
-    {% else %}
-        <a href="{% url 'users:login' %}">Вхід на сайт</a> - 
-        <a href="{% url 'users:register' %}">Реєстрація</a>
-    {% endif %}
-</p>
+{% load django_bootstrap5 %}
 
-{% block content %}{% endblock content %}
+<!doctype html>
+<html lang="UK">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Lertaning Log</title>
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning Log</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'learning_logs:topics' %}">Теми</a>
+                  </li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item mt-2 me-3">
+                            <span class="navbar-text">Привіт, {{ user.username }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:logout' %}">Вихід</a>
+                        </li> 
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:login' %}">Вхід</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:register' %}">Реєстрація</a>
+                    </li>
+                    {% endif %}
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+        <p>
+            <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
+            <a href="{% url 'learning_logs:topics' %}">Теми</a> - 
+            
+        </p>
+        
+        {% block content %}{% endblock content %}
+    </body>
+</html>
