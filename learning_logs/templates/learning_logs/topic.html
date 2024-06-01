@@ -1,19 +1,21 @@
 {% extends "learning_logs/base.html" %}
 
 {% block content %}
-    <p>Тема: {{ topic }}</p>
+    <h2>Тема: {{ topic }}</h2>
 
-    <p>Нотатки:</p>
-    <p><a href="{% url 'learning_logs:new_entry' topic.id %}">Додати нову</a></p>
-    <ul>
-        {% for entry in entries %}
-            <li>
-                <p>{{ entry.date_added|date:'d.m.Y H:i' }}</p>
-                <p>{{ entry.text|linebreaks }}</p>
-                <p><a href="{% url 'learning_logs:edit_entry' entry.id %}">Змінити нотатку</a></p>
-            </li>
-        {% empty %}
-            <li>Відсутні нотатки за темою.</li>
-        {% endfor %}
-    </ul>
+    <h3><a href="{% url 'learning_logs:new_entry' topic.id %}">Додати нову нотатку</a></h3>
+    
+    {% for entry in entries %}
+        <div class="card mb-3">
+            <h4 class="card-header">
+                {{ entry.date_added|date:'d.m.Y H:i' }}
+                <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">Змінити нотатку</a></small>
+            </h4>
+            <div class="card-body">
+                {{ entry.text|linebreaks }}
+            </div>
+        </div>
+    {% empty %}
+        <h4>Відсутні нотатки за темою.</h4>
+    {% endfor %}
 {% endblock content %}
