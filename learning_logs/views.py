@@ -17,6 +17,7 @@ def topics(request):
     context = {'topics': topics}
     return render(request, 'learning_logs/topics.html', context)
 
+@login_required
 def topic(request, topic_id):
     """Виводить одну тему і всі її нотатки"""
     topic = Topic.objects.get(id=topic_id)
@@ -24,6 +25,7 @@ def topic(request, topic_id):
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/topic.html', context)
 
+@login_required
 def new_topic(request):
     """Додає нову тему"""
     if request.method != 'POST':
@@ -39,6 +41,7 @@ def new_topic(request):
     context = {'form': form}
     return render(request, 'learning_logs/new_topic.html', context)
 
+@login_required
 def new_entry(request, topic_id):
     """Додає нову нотатку до нової теми"""
     topic = Topic.objects.get(id=topic_id)
@@ -55,6 +58,7 @@ def new_entry(request, topic_id):
     context = {'form': form, 'topic': topic}
     return render(request, 'learning_logs/new_entry.html', context)
 
+@login_required
 def edit_entry(request, entry_id):
     """Редагує існуючу нотатку"""
     entry = Entry.objects.get(id=entry_id)
